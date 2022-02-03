@@ -1,9 +1,6 @@
 ﻿using System;
-using static System.Console;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static System.Console;
 
 namespace taskHelper_lib
 {
@@ -56,6 +53,26 @@ namespace taskHelper_lib
             double y2 = double.Parse(ReadLine());
 
             return (double)Math.Sqrt(Math.Pow(x2 - x1, 2) + Math.Pow(y2 - y1, 2));
+        }
+
+        public static List<int> SplitIntToDigits(int i)
+        {
+            i = Math.Abs(i);
+            var digits = new List<int>();
+            while (i > 0)
+            {
+                int digit = i % 10;
+                i /= 10;
+                digits.Add(digit);
+            }
+
+            return digits;
+        }
+
+        public static bool SignIn(string login, string password)
+        {
+            if (login != "root" && password != "GeekBrains") return false;
+            return true;
         }
     }
 }

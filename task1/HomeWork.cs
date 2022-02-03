@@ -2,126 +2,136 @@
 using static System.Console;
 using taskHelper_lib;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace homeWork_1
+namespace homeWorks
 {
     internal class HomeWork
-    {
-        private static string name;
-        private static string surname;
-        private static int age;
-        private static int height;
-        private static int weight;
-        private static string city;
-        
-        static void Main()
-        {
-            Printer.PrintHeader(1);
-            int taskNumber;
-            do
+	{
+		private static int height;
+		private static int weight;
+				
+		static void Main()
+		{
+			// домашка 2
+			Printer.PrintHeader(2);
+			int taskNumber;
+			do
+			{
+				taskNumber = TaskHelper.GetTaskNumber(7);
+				switch (taskNumber)
+				{
+					case 1:
+						Task1();
+						break;
+					case 0:
+						Printer.PrintFooter();
+						break;
+					case 2:
+						Task2();
+						break;
+					case 3:
+						Task3();
+						break;
+					case 4:
+						Task4();
+						break;
+					case 5:
+						Task5();
+						break;
+					case 6:
+						Task6();
+						break;
+					case 7:
+						Task7();
+						break;
+				}
+			}
+			while (taskNumber != 0);
+		}        
+
+		static void Task1()
+		{
+			// some indian code without any validation
+			Write("Введите первое число: ");
+			int a = int.Parse(ReadLine());
+			Write("Введите второе число: ");
+			int b = int.Parse(ReadLine());
+			Write("Введите третье число: ");
+			int c = int.Parse(ReadLine());
+			// case 1
+			int x = Math.Min(a, b);
+			WriteLine("Минимальное число: {0}", x < c ? x : c);
+			// case 2
+			WriteLine("Минимальное число: {0}", a < b ? a < c ? a : c : b < c ? b : c);
+		}
+
+		static void Task2()
+		{
+			Write("Введите целое число: ");
+			var x = TaskHelper.SplitIntToDigits(int.Parse(ReadLine()));
+			WriteLine($"Количество цифр = {x.Count}");
+		}
+						
+		static void Task3()
+		{
+			// quick simle without validation
+			var numbersList = new List<int>();
+			int num = 1;
+			int sum = 0;
+			while(num > 0)
             {
-                taskNumber = TaskHelper.GetTaskNumber(6);
-                switch (taskNumber)
-                {
-                    case 1:
-                        Task1();
-                        break;
-                    case 0:
-                        Printer.PrintFooter();
-                        break;
-                    case 2:
-                        Task2();
-                        break;
-                    case 3:
-                        Task3();
-                        break;
-                    case 4:
-                        Task4();
-                        break;
-                    case 5:
-                        Task5();
-                        break;
-                    case 6:
-                        Task6();
-                        break;
-                }
+				Write("Введите любое целое число, ноль для выхода: ");
+				num = int.Parse(ReadLine());
+				if (num > 0 && num % 2 != 0) numbersList.Add(num);
+                
+			}
+			if (numbersList.Count > 0)
+				foreach (int i in numbersList)
+					sum += i;
+			if (sum > 0) WriteLine($"Сумма чисел равна {sum}");
+			
+		}
+
+		static void Task4()
+		{
+			int i = 3;
+			string login;
+			string password;
+			while(i > 0)
+            {
+				Write("Введите логин: ");
+				login = ReadLine();
+				Write("Введите пароль: ");
+				password = ReadLine();
+				if (TaskHelper.SignIn(login, password))
+				{
+					WriteLine("Вы успешно залогинились.");
+					break;
+				}
+				else
+				{
+					i--;
+					WriteLine($"Неверные данные, попробуйте снова. Осталось попыток: {i}");
+				}
             }
-            while (taskNumber != 0);
-        }        
 
-        static void Task1()
-        {
-            name = TaskHelper.AskUserAbout("Ваше имя: ");
-            surname = TaskHelper.AskUserAbout("Ваша фамилия: ");
-            age = int.Parse(TaskHelper.AskUserAbout("Ваш возраст: "));
-            height = int.Parse(TaskHelper.AskUserAbout("Ваш рост: "));
-            weight = int.Parse(TaskHelper.AskUserAbout("Ваш вес: "));
+		}
 
-            WriteLine("Ваши данные:");
-            WriteLine("Имя: " + name + ", Фамилия: " + surname + ", Возраст: " + age +
-                ", Рост: " + height + ", Вес: " + weight);
-            WriteLine("Имя: {0}, Фамилия: {1}, Возраст: {2}, Рост: {3}, Вес: {4}", name, surname, age,
-                height, weight);
-            WriteLine($"Имя: {name}, Фамилия: {surname}, Возраст: {age}, Рост: {height}," +
-                $" Вес: {weight}");
-        }
+		static void Task5()
+		{
+			weight = int.Parse(TaskHelper.AskUserAbout("Ваш вес, кг: "));
+			height = int.Parse(TaskHelper.AskUserAbout("Ваш рост, м: "));
+			WriteLine($"Индекс массы тела равен {weight / Math.Pow(height, 2)}");
+		}
 
-        static void Task2()
-        {
-            weight = int.Parse(TaskHelper.AskUserAbout("Ваш вес, кг: "));
-            height = int.Parse(TaskHelper.AskUserAbout("Ваш рост, м: "));
-            WriteLine($"Индекс массы тела равен {weight / Math.Pow(height, 2)}");
-        }
-        
-        static void Task3()
-        {
-            WriteLine("Расстояние равно {0:F2}", TaskHelper.GetDistanceBetweenTwoDots());
-        }
+		static void Task6()
+		{
+			
+		}
 
-        static void Task4()
+		static void Task7()
         {
-            WriteLine(
-                "int x = 1;\n" +
-                "int y = 2;\n" +
-                "int z = x;\n" +
-                "x = y; y = z;"
-            );
-            
-            // without z
-            WriteLine(
-                "int x = 2;\n" +
-                "int y = 4;\n" +
-                "x += y;\n" +
-                "y = x - y;\n" +
-                "x -= y;"
-            );
-            int x = 2;
-            int y = 4;
-            x += y;
-            y = x - y;
-            x -= y;
-            Write($"{x}, {y}");
 
         }
-
-        static void Task5()
-        {
-            name = TaskHelper.AskUserAbout("Ваше имя: ");
-            surname = TaskHelper.AskUserAbout("Ваша фамилия: ");
-            city = TaskHelper.AskUserAbout("Ваш город: ");
-            string text = $"{name} {surname}, г.{city}";
-            int centerByX = (WindowWidth/2) - (text.Length / 2);
-            int centerByY = (WindowHeight/2) - 1;
-            SetCursorPosition(centerByX, centerByY);
-            WriteLine(text);
-        }
-        static void Task6()
-        {
-            WriteLine("Пауза 3 сек");
-            TaskHelper.Pause(3);
-        }
-    }
+	}
 }

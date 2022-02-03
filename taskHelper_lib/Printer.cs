@@ -1,9 +1,4 @@
-﻿using System;
-using static System.Console;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using static System.Console;
 
 namespace taskHelper_lib
 {
@@ -20,6 +15,11 @@ namespace taskHelper_lib
         {
             WriteLine("Завершение работы");
             TaskHelper.Pause(2);
+        }
+
+        public static void PrintError()
+        {
+            WriteLine("Введено неверное значение, повторите ввод");
         }
 
     }
