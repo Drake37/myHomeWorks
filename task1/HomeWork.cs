@@ -7,8 +7,8 @@ namespace homeWorks
 {
     internal class HomeWork
 	{
-		private static int height;
-		private static int weight;
+		private static double height;
+		private static double weight;
 				
 		static void Main()
 		{
@@ -119,9 +119,22 @@ namespace homeWorks
 
 		static void Task5()
 		{
-			weight = int.Parse(TaskHelper.AskUserAbout("Ваш вес, кг: "));
-			height = int.Parse(TaskHelper.AskUserAbout("Ваш рост, м: "));
-			WriteLine($"Индекс массы тела равен {weight / Math.Pow(height, 2)}");
+			string msg;
+			weight = double.Parse(TaskHelper.AskUserAbout("Ваш вес, кг: "));
+			height = double.Parse(TaskHelper.AskUserAbout("Ваш рост, м: "));
+			double weightIndex = (double)(weight / Math.Pow(height, 2));
+			double normalWeight = 18.5 * Math.Pow(height, 2);
+			if (weightIndex < 18.5)
+			{
+				msg = $"Недостаточный вес, вам надо набрать {normalWeight - weight} кг";
+			}
+			else if (weightIndex > 18.5 && weightIndex < 26)
+			{
+				msg = "Все ОК";
+			}
+			else msg = $"Избыточный вес, вам надо похудеть на {weight - normalWeight} кг";
+
+			WriteLine(msg);
 		}
 
 		static void Task6()
