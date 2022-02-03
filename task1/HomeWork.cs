@@ -2,6 +2,7 @@
 using static System.Console;
 using taskHelper_lib;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace homeWorks
 {
@@ -13,6 +14,7 @@ namespace homeWorks
 		static void Main()
 		{
 			// домашка 2
+			Title = "MyHomeWork";
 			Printer.PrintHeader(2);
 			int taskNumber;
 			do
@@ -139,12 +141,27 @@ namespace homeWorks
 
 		static void Task6()
 		{
-			
+			//DateTime startTime = DateTime.Now;
+			Stopwatch startTime = Stopwatch.StartNew(); // это лучше
+			int count = 0;
+			for (int i = 1; i <= 2000000; i++)
+            {
+				if (i % TaskHelper.SumDigitsLinq(i) == 0) count++;
+            }
+			//DateTime endTime = DateTime.Now;
+			//TimeSpan takenTime = endTime.Subtract(startTime);
+			//double takenTimeInMs = takenTime.TotalMilliseconds;
+			startTime.Stop();
+			double takenTimeInMs = startTime.Elapsed.TotalMilliseconds;
+			WriteLine($"Кол-во хороших чисел равно {count}, время выполнения {takenTimeInMs} мс");
 		}
 
 		static void Task7()
         {
-
-        }
+			WriteLine("");
+			Printer.PrintNumbers(1, 10);
+			WriteLine($"\n{TaskHelper.SumNumbers(1, 5)}");
+			
+		}
 	}
 }

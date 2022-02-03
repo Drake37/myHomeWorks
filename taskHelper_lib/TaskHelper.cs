@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using static System.Console;
 
 namespace taskHelper_lib
@@ -13,9 +14,9 @@ namespace taskHelper_lib
 
         public static int GetTaskNumber(int maxTaskNumber = 6)
         {
-            WriteLine($"\n" +
+            Write($"\n" +
                 $"==========================\n" +
-                $"Введите номер задачи от 1 до {maxTaskNumber} для выполнения, 0 для выхода.");
+                $"Введите номер задачи от 1 до {maxTaskNumber} для выполнения, 0 для выхода: ");
             
             //int taskNumber = Convert.ToInt32(input); // todo: почитать про конверт
             bool result;
@@ -73,6 +74,20 @@ namespace taskHelper_lib
         {
             if (login != "root" && password != "GeekBrains") return false;
             return true;
+        }
+
+        public static int SumDigitsLinq(int num)
+        {
+            return SplitIntToDigits(num).Sum();
+        }
+
+        public static int SumNumbers(int numFrom, int numTo)
+        {
+            if (numFrom <= numTo)
+            {
+                return numFrom += SumNumbers(++numFrom, numTo);
+            }
+            else return 0;
         }
     }
 }

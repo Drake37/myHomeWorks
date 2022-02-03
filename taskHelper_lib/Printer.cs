@@ -22,6 +22,13 @@ namespace taskHelper_lib
             WriteLine("Введено неверное значение, повторите ввод");
         }
 
+        public static void PrintNumbers(int numFrom, int numTo)
+        {
+            WriteLine(numFrom);
+            if (numFrom < numTo) PrintNumbers(++numFrom, numTo);
+
+        }
+
     }
     
 }
