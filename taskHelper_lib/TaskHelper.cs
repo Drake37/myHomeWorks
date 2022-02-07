@@ -18,7 +18,6 @@ namespace taskHelper_lib
                 $"==========================\n" +
                 $"Введите номер задачи от 1 до {maxTaskNumber} для выполнения, 0 для выхода: ");
             
-            //int taskNumber = Convert.ToInt32(input); // todo: почитать про конверт
             bool result;
             int taskNumber;
 
@@ -33,6 +32,7 @@ namespace taskHelper_lib
             while (!result || taskNumber > maxTaskNumber || taskNumber < 0);
             return taskNumber;
         }
+
         public static string AskUserAbout(string question)
         {
             Write(question);
@@ -87,7 +87,7 @@ namespace taskHelper_lib
             {
                 return numFrom + SumNumbers(++numFrom, numTo);
             }
-            else return 0;
+            return 0;
         }
     }
 }

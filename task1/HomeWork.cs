@@ -8,18 +8,15 @@ namespace homeWorks
 {
     internal class HomeWork
 	{
-		private static double height;
-		private static double weight;
-				
 		static void Main()
 		{
-			// домашка 2
+			// домашка 3
 			Title = "MyHomeWork";
-			Printer.PrintHeader(2);
+			Printer.PrintHeader(3);
 			int taskNumber;
 			do
 			{
-				taskNumber = TaskHelper.GetTaskNumber(7);
+				taskNumber = TaskHelper.GetTaskNumber(3);
 				switch (taskNumber)
 				{
 					case 1:
@@ -53,113 +50,88 @@ namespace homeWorks
 
 		static void Task1()
 		{
-			// some indian code without any validation
-			Write("Введите первое число: ");
-			int a = int.Parse(ReadLine());
-			Write("Введите второе число: ");
-			int b = int.Parse(ReadLine());
-			Write("Введите третье число: ");
-			int c = int.Parse(ReadLine());
-			// case 1
-			int x = Math.Min(a, b);
-			WriteLine("Минимальное число: {0}", x < c ? x : c);
-			// case 2
-			WriteLine("Минимальное число: {0}", a < b ? a < c ? a : c : b < c ? b : c);
+
+            Complex complex1;
+            complex1.re = 1;
+			complex1.im = 1;
+
+            Complex complex2;
+            complex2.re = 2;
+			complex2.im = 2;
+
+			Complex result = complex1.Plus(complex2);
+			WriteLine(result.ToStr);
+			result = complex1.Multi(complex2);
+			WriteLine(result.ToStr);
+			result = complex2.Minus(complex1);
+			WriteLine(result.ToStr);
+			WriteLine("------class-------");
+			
+			Ccomplex c1 = new(1,1);
+			Ccomplex c2 = new(2,2);
+            Ccomplex res;
+			string input;
+			do
+			{
+				Write("Enter method (+,-,*) or [0] to exit: ");
+				input = ReadLine();
+				switch (input)
+				{
+					case "+": res = c1.Plus(c2); WriteLine(res.ToStr); break;
+					case "-": res = c1.Minus(c2); WriteLine(res.ToStr); break;
+					case "*": res = c1.Multiply(c2); WriteLine(res.ToStr); break;
+
+				}
+			}
+			while (input != "0");
 		}
 
 		static void Task2()
 		{
-			Write("Введите целое число: ");
-			var x = TaskHelper.SplitIntToDigits(int.Parse(ReadLine()));
-			WriteLine($"Количество цифр = {x.Count}");
+			var numbersList = new List<int>();
+			int sum = 0;
+            bool res;
+			string input = "";
+			while (input != "exit")
+			{
+				Write("Введите любое целое число, 'exit' для выхода: ");
+				input = ReadLine();
+				res = int.TryParse(input, out int num);
+				if (num > 0 && num % 2 != 0) numbersList.Add(num);
+			}
+
+			if (numbersList.Count > 0) numbersList.ForEach(i => sum += i);
+			string output;
+			if (sum > 0) output = $"Сумма чисел равна {sum}\nЧисла: {string.Join(", ", numbersList)}";
+			else output = "Не найдено подходящих чисел для операции.";
+			WriteLine(output);
 		}
-						
+
 		static void Task3()
 		{
-			// quick simle without validation
-			var numbersList = new List<int>();
-			int num = 1;
-			int sum = 0;
-			while(num > 0)
-            {
-				Write("Введите любое целое число, ноль для выхода: ");
-				num = int.Parse(ReadLine());
-				if (num > 0 && num % 2 != 0) numbersList.Add(num);
-                
-			}
-			if (numbersList.Count > 0)
-				foreach (int i in numbersList)
-					sum += i;
-			if (sum > 0) WriteLine($"Сумма чисел равна {sum}");
+			Fraction F = new(1, 0);
+
 			
 		}
 
 		static void Task4()
 		{
-			int i = 3;
-			string login;
-			string password;
-			while(i > 0)
-            {
-				Write("Введите логин: ");
-				login = ReadLine();
-				Write("Введите пароль: ");
-				password = ReadLine();
-				if (TaskHelper.SignIn(login, password))
-				{
-					WriteLine("Вы успешно залогинились.");
-					break;
-				}
-				else
-				{
-					i--;
-					WriteLine($"Неверные данные, попробуйте снова. Осталось попыток: {i}");
-				}
-            }
-
+			
 		}
 
 		static void Task5()
 		{
-			string msg;
-			weight = double.Parse(TaskHelper.AskUserAbout("Ваш вес, кг: "));
-			height = double.Parse(TaskHelper.AskUserAbout("Ваш рост, м: "));
-			double weightIndex = (double)(weight / Math.Pow(height, 2));
-			double normalWeight = 18.5 * Math.Pow(height, 2);
-			if (weightIndex < 18.5)
-			{
-				msg = $"Недостаточный вес, вам надо набрать {normalWeight - weight} кг";
-			}
-			else if (weightIndex > 18.5 && weightIndex < 26)
-			{
-				msg = "Все ОК";
-			}
-			else msg = $"Избыточный вес, вам надо похудеть на {weight - normalWeight} кг";
-
-			WriteLine(msg);
+			
 		}
 
 		static void Task6()
 		{
-			//DateTime startTime = DateTime.Now;
-			Stopwatch startTime = Stopwatch.StartNew(); // это лучше
-			int count = 0;
-			for (int i = 1; i <= 1e9; i++)
-            {
-				if (i % TaskHelper.SumDigitsLinq(i) == 0) count++;
-            }
-			//DateTime endTime = DateTime.Now;
-			//TimeSpan takenTime = endTime.Subtract(startTime);
-			//double takenTimeInMs = takenTime.TotalMilliseconds;
-			startTime.Stop();
-			WriteLine($"Кол-во хороших чисел равно {count}, время выполнения {startTime.Elapsed}");
+			
 		}
 
 		static void Task7()
         {
-			WriteLine("");
-			Printer.PrintNumbers(1, 10);
-			WriteLine($"\n{TaskHelper.SumNumbers(1, 5)}");
+			
 			
 		}
 	}
