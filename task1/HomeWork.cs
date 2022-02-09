@@ -67,8 +67,8 @@ namespace homeWorks
 			WriteLine(result.ToStr);
 			WriteLine("------class-------");
 			
-			Ccomplex c1 = new(1,1);
-			Ccomplex c2 = new(2,2);
+			Ccomplex c1 = new Ccomplex(1,1);
+			Ccomplex c2 = new Ccomplex(2,2);
             Ccomplex res;
 			string input;
 			do
@@ -109,8 +109,67 @@ namespace homeWorks
 
 		static void Task3()
 		{
-			Fraction F = new(1, 0);
+			bool res;
+			int num;
+			int denom;
+			do
+			{
+				WriteLine("числитель: ");
+				res = int.TryParse(ReadLine(), out num);
+				if (!res) Write("еще раз ");
 
+			}
+			while (!res);
+			do
+			{
+				WriteLine("знаменатель: ");
+				res = int.TryParse(ReadLine(), out denom);
+				if (!res || denom == 0) Write("еще раз ");
+
+			}
+			while (!res || denom == 0);
+
+			Fraction x = new Fraction(num, denom);
+			WriteLine("\nОперация ('+', '-', '*', '/'):");
+			string oper = ReadLine();
+			do
+			{
+				WriteLine("числитель: ");
+				res = int.TryParse(ReadLine(), out num);
+				if (!res) Write("еще раз ");
+
+			}
+			while (!res);
+			do
+			{
+				WriteLine("знаменатель: ");
+				res = int.TryParse(ReadLine(), out denom);
+				if (!res || denom == 0) Write("еще раз ");
+
+			}
+			while (!res || denom == 0);
+
+			Fraction y = new Fraction(num, denom);
+			Fraction r;
+			switch (oper)
+            {
+				case "+":
+					r = x + y;
+					WriteLine(r.Reduce().ToString());
+					break;
+				case "-":
+					r = x - y;
+					WriteLine(r.Reduce().ToString());
+					break;
+				case "*":
+					r = x * y;
+					WriteLine(r.Reduce().ToString());
+					break;
+				case "/":
+					r = x / y;
+					WriteLine(r.Reduce().ToString());
+					break;
+			}
 			
 		}
 
