@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "howeWorks", "task1\howeWork
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "taskHelper_lib", "taskHelper_lib\taskHelper_lib.csproj", "{B33AF3F7-A6A9-4B89-8AB9-4B997DB8364B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "arrays_lib", "arrays_lib\arrays_lib.csproj", "{BFEEA68F-0410-48A6-AABB-D9BF38E35B92}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{B33AF3F7-A6A9-4B89-8AB9-4B997DB8364B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B33AF3F7-A6A9-4B89-8AB9-4B997DB8364B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B33AF3F7-A6A9-4B89-8AB9-4B997DB8364B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFEEA68F-0410-48A6-AABB-D9BF38E35B92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFEEA68F-0410-48A6-AABB-D9BF38E35B92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFEEA68F-0410-48A6-AABB-D9BF38E35B92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFEEA68F-0410-48A6-AABB-D9BF38E35B92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
