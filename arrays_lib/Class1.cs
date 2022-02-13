@@ -44,8 +44,8 @@ namespace arrays_lib
                 Console.WriteLine(ex.Message);
             }
             return A;
-        }
     }
+}
 
 
 }
