@@ -58,7 +58,6 @@ namespace homeWorks
 			for (int i = 0; i < 20; i++)
 				ar[i] = r.Next(-10000, 10000);
 
-			//WriteLine(StaticClass.GetPairCount(ar));
 		}
 
 		static void Task2()
@@ -97,12 +96,27 @@ namespace homeWorks
 
 		static void Task4()
 		{
-			// coming soon
+			string f = @"C:\Users\Drake\source\repos\homeWork01\task1\TextFile2.txt";
+			Sauth x = new Sauth(f);
+			int cnt = 4;
+			string answer;
+			while(--cnt > 0 && !x.IsDataValid())
+            {
+				WriteLine($"Invalid data, attempts left: {cnt}\nChange data and press [y]");
+				answer = ReadLine();
+				if (answer == "y") x.SetData(f);
+				else break;
+            }
+
 		}
 
 		static void Task5()
 		{
+			C2dArr c2DArr = new C2dArr(@"C:\Users\Drake\source\repos\homeWork01\arrays_lib\2dArr.txt");
+			WriteLine(c2DArr.Ar[0, 0]);
+			WriteLine(c2DArr.Ar[2, 4]);
 
+			c2DArr.Log(c2DArr.Ar[0, 4].ToString(), @"C:\Users\Drake\source\repos\homeWork01\arrays_lib\log.txt");
 		}
 
 		static void Task6()
