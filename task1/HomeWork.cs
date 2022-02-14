@@ -97,12 +97,26 @@ namespace homeWorks
 
 		static void Task4()
 		{
-			// coming soon
+			string f = @"C:\Users\Drake\source\repos\homeWork01\task1\TextFile2.txt";
+			Sauth x = new Sauth(f);
+			int cnt = 4;
+			string answer;
+			while(--cnt > 0 && !x.IsDataValid())
+            {
+				WriteLine($"Invalid data, attempts left: {cnt}\nChange data and press [y]");
+				answer = ReadLine();
+				if (answer == "y") x.SetData(f);
+				else break;
+            }
+
 		}
 
 		static void Task5()
 		{
-
+			string x = "segs jhdkjgfh";
+			string[] arTest = x.Split(' ');
+			foreach (var xx in arTest)
+				WriteLine(xx);
 		}
 
 		static void Task6()
