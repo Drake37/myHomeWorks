@@ -2,126 +2,139 @@
 using static System.Console;
 using taskHelper_lib;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 
-namespace homeWork_1
+namespace homeWorks
 {
     internal class HomeWork
-    {
-        private static string name;
-        private static string surname;
-        private static int age;
-        private static int height;
-        private static int weight;
-        private static string city;
-        
-        static void Main()
-        {
-            Printer.PrintHeader(1);
-            int taskNumber;
-            do
-            {
-                taskNumber = TaskHelper.GetTaskNumber(6);
-                switch (taskNumber)
-                {
-                    case 1:
-                        Task1();
-                        break;
-                    case 0:
-                        Printer.PrintFooter();
-                        break;
-                    case 2:
-                        Task2();
-                        break;
-                    case 3:
-                        Task3();
-                        break;
-                    case 4:
-                        Task4();
-                        break;
-                    case 5:
-                        Task5();
-                        break;
-                    case 6:
-                        Task6();
-                        break;
-                }
-            }
-            while (taskNumber != 0);
-        }        
+	{
+		static void Main()
+		{
+			// домашка 5
+			Title = "MyHomeWork";
+			Printer.PrintHeader(5);
+			int taskNumber;
+			do
+			{
+				taskNumber = TaskHelper.GetTaskNumber(2);
+				switch (taskNumber)
+				{
+					case 1:
+						Task1();
+						break;
+					case 0:
+						Printer.PrintFooter();
+						break;
+					case 2:
+						Task2();
+						break;
+					case 3:
+						Task3();
+						break;
+					case 4:
+						Task4();
+						break;
+					case 5:
+						Task5();
+						break;
+					case 6:
+						Task6();
+						break;
+					case 7:
+						Task7();
+						break;
+				}
+			}
+			while (taskNumber != 0);
+		}        
 
-        static void Task1()
-        {
-            name = TaskHelper.AskUserAbout("Ваше имя: ");
-            surname = TaskHelper.AskUserAbout("Ваша фамилия: ");
-            age = int.Parse(TaskHelper.AskUserAbout("Ваш возраст: "));
-            height = int.Parse(TaskHelper.AskUserAbout("Ваш рост: "));
-            weight = int.Parse(TaskHelper.AskUserAbout("Ваш вес: "));
+		static void Task1()
+		{
+			// Так не работает норм, ибо кирилица тоже подходит
+			//bool x = TaskHelper.IsCorrectLogin("ШГолыв54");
+			//WriteLine(x);
 
-            WriteLine("Ваши данные:");
-            WriteLine("Имя: " + name + ", Фамилия: " + surname + ", Возраст: " + age +
-                ", Рост: " + height + ", Вес: " + weight);
-            WriteLine("Имя: {0}, Фамилия: {1}, Возраст: {2}, Рост: {3}, Вес: {4}", name, surname, age,
-                height, weight);
-            WriteLine($"Имя: {name}, Фамилия: {surname}, Возраст: {age}, Рост: {height}," +
-                $" Вес: {weight}");
-        }
+			string login = "RomanV37";
+			byte[] arBytes = new byte[192];
+			int n = 0;
+			for (int i = 0; i < 47; i++)
+			{
+				arBytes[n] = (byte)i;
+				n++;
+			}
+			for (int i = 58; i < 64; i++)
+			{
+				arBytes[n] = (byte)i;
+				n++;
+			}
+			for (int i = 91; i < 96; i++)
+			{
+				arBytes[n] = (byte)i;
+				n++;
+			}
+			for (int i = 123; i < 255; i++)
+			{
+				arBytes[n] = (byte)i;
+				n++;
+			}
 
-        static void Task2()
-        {
-            weight = int.Parse(TaskHelper.AskUserAbout("Ваш вес, кг: "));
-            height = int.Parse(TaskHelper.AskUserAbout("Ваш рост, м: "));
-            WriteLine($"Индекс массы тела равен {weight / Math.Pow(height, 2)}");
-        }
-        
-        static void Task3()
-        {
-            WriteLine("Расстояние равно {0:F2}", TaskHelper.GetDistanceBetweenTwoDots());
-        }
+			char[] arChars = System.Text.Encoding.ASCII.GetChars(arBytes);
+			bool f = false;
+			for (int i = 0; i < login.Length; i++) {
+				f = false;
+				n = 0;
+				foreach (var el in arChars)
+				{
+					if (login[i] == el) {
+						f = true; n = 0;
+						break;
+					}
+					else if( n == arChars.Length)
+                    {
+						f = false;
+                    }
 
-        static void Task4()
-        {
-            WriteLine(
-                "int x = 1;\n" +
-                "int y = 2;\n" +
-                "int z = x;\n" +
-                "x = y; y = z;"
-            );
-            
-            // without z
-            WriteLine(
-                "int x = 2;\n" +
-                "int y = 4;\n" +
-                "x += y;\n" +
-                "y = x - y;\n" +
-                "x -= y;"
-            );
-            int x = 2;
-            int y = 4;
-            x += y;
-            y = x - y;
-            x -= y;
-            Write($"{x}, {y}");
+				}
 
-        }
+			}
+			
+			
 
-        static void Task5()
+			if (login.Length >= 2 && login.Length <= 10 && Char.IsDigit((char)login[0]) == false && f == false)
+				WriteLine("логин {0} корректен", login);
+			else
+				WriteLine("Логин не корректен");
+		}
+
+		static void Task2()
+		{
+
+		}
+
+		static void Task3()
+		{
+
+		}
+
+		static void Task4()
+		{
+			
+		}
+
+		static void Task5()
+		{
+			
+		}
+
+		static void Task6()
+		{
+			
+		}
+
+		static void Task7()
         {
-            name = TaskHelper.AskUserAbout("Ваше имя: ");
-            surname = TaskHelper.AskUserAbout("Ваша фамилия: ");
-            city = TaskHelper.AskUserAbout("Ваш город: ");
-            string text = $"{name} {surname}, г.{city}";
-            int centerByX = (WindowWidth/2) - (text.Length / 2);
-            int centerByY = (WindowHeight/2) - 1;
-            SetCursorPosition(centerByX, centerByY);
-            WriteLine(text);
-        }
-        static void Task6()
-        {
-            WriteLine("Пауза 3 сек");
-            TaskHelper.Pause(3);
-        }
-    }
+			
+			
+		}
+	}
 }
