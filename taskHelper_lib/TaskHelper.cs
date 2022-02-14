@@ -90,7 +90,12 @@ namespace taskHelper_lib
             return 0;
         }
     
-    
+        public static bool IsCorrectLogin(string login)
+        {
+            if (login.Length < 2 || login.Length > 10) return false;
+            if (!char.IsLetter(login[0])) return false;
+            return login.All(char.IsLetterOrDigit);
+        }
     }
 
 }

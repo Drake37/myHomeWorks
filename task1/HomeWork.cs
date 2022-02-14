@@ -3,6 +3,7 @@ using static System.Console;
 using taskHelper_lib;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace homeWorks
 {
@@ -10,13 +11,13 @@ namespace homeWorks
 	{
 		static void Main()
 		{
-			// домашка 3
+			// домашка 5
 			Title = "MyHomeWork";
-			Printer.PrintHeader(3);
+			Printer.PrintHeader(5);
 			int taskNumber;
 			do
 			{
-				taskNumber = TaskHelper.GetTaskNumber(3);
+				taskNumber = TaskHelper.GetTaskNumber(2);
 				switch (taskNumber)
 				{
 					case 1:
@@ -46,131 +47,75 @@ namespace homeWorks
 				}
 			}
 			while (taskNumber != 0);
-		}        
+		}
 
 		static void Task1()
 		{
+			// Так не работает норм, ибо кирилица тоже подходит
+			//bool x = TaskHelper.IsCorrectLogin("ШГолыв54");
+			//WriteLine(x);
 
-            Complex complex1;
-            complex1.re = 1;
-			complex1.im = 1;
-
-            Complex complex2;
-            complex2.re = 2;
-			complex2.im = 2;
-
-			Complex result = complex1.Plus(complex2);
-			WriteLine(result.ToStr);
-			result = complex1.Multi(complex2);
-			WriteLine(result.ToStr);
-			result = complex2.Minus(complex1);
-			WriteLine(result.ToStr);
-			WriteLine("------class-------");
-			
-			Ccomplex c1 = new Ccomplex(1,1);
-			Ccomplex c2 = new Ccomplex(2,2);
-            Ccomplex res;
-			string input;
-			do
+			string login = "Roman37";
+			byte[] arBytes = new byte[192];
+			int n = 0;
+			for (int i = 0; i < 47; i++)
 			{
-				Write("Enter method (+,-,*) or [0] to exit: ");
-				input = ReadLine();
-				switch (input)
-				{
-					case "+": res = c1.Plus(c2); WriteLine(res.ToStr); break;
-					case "-": res = c1.Minus(c2); WriteLine(res.ToStr); break;
-					case "*": res = c1.Multiply(c2); WriteLine(res.ToStr); break;
-
-				}
+				arBytes[n] = (byte)i;
+				n++;
 			}
-			while (input != "0");
+			for (int i = 58; i < 64; i++)
+			{
+				arBytes[n] = (byte)i;
+				n++;
+			}
+			for (int i = 91; i < 96; i++)
+			{
+				arBytes[n] = (byte)i;
+				n++;
+			}
+			for (int i = 123; i < 255; i++)
+			{
+				arBytes[n] = (byte)i;
+				n++;
+			}
+
+			char[] arChars = System.Text.Encoding.ASCII.GetChars(arBytes); // массив исключений
+			bool f = true;
+
+			for (int i = 0; i < login.Length; i++) {
+				for (n = 0; n < arChars.Length; n++)
+				{
+					if (login[i] == arChars[n])
+					{
+						f = false;
+						break;
+					}
+				}
+				if (!f) break;
+			}			
+
+			if (login.Length >= 2 && login.Length <= 10 && Char.IsDigit((char)login[0]) == false && f == true)
+				WriteLine("логин {0} корректен", login);
+			else
+				WriteLine("Логин не корректен");
+
+			// regex
+
+			Regex lr = new Regex("^[a-z][a-z0-9]{1,9}$", RegexOptions.IgnoreCase);
+			if(lr.IsMatch(login))
+				WriteLine("логин {0} корректен", login);
+			else
+				WriteLine("Логин не корректен");
 		}
 
 		static void Task2()
 		{
-			var numbersList = new List<int>();
-			int sum = 0;
-            bool res;
-			string input = "";
-			while (input != "exit")
-			{
-				Write("Введите любое целое число, 'exit' для выхода: ");
-				input = ReadLine();
-				res = int.TryParse(input, out int num);
-				if (num > 0 && num % 2 != 0) numbersList.Add(num);
-			}
 
-			if (numbersList.Count > 0) numbersList.ForEach(i => sum += i);
-			string output;
-			if (sum > 0) output = $"Сумма чисел равна {sum}\nЧисла: {string.Join(", ", numbersList)}";
-			else output = "Не найдено подходящих чисел для операции.";
-			WriteLine(output);
 		}
 
 		static void Task3()
 		{
-			bool res;
-			int num;
-			int denom;
-			do
-			{
-				WriteLine("числитель: ");
-				res = int.TryParse(ReadLine(), out num);
-				if (!res) Write("еще раз ");
 
-			}
-			while (!res);
-			do
-			{
-				WriteLine("знаменатель: ");
-				res = int.TryParse(ReadLine(), out denom);
-				if (!res || denom == 0) Write("еще раз ");
-
-			}
-			while (!res || denom == 0);
-
-			Fraction x = new Fraction(num, denom);
-			WriteLine("\nОперация ('+', '-', '*', '/'):");
-			string oper = ReadLine();
-			do
-			{
-				WriteLine("числитель: ");
-				res = int.TryParse(ReadLine(), out num);
-				if (!res) Write("еще раз ");
-
-			}
-			while (!res);
-			do
-			{
-				WriteLine("знаменатель: ");
-				res = int.TryParse(ReadLine(), out denom);
-				if (!res || denom == 0) Write("еще раз ");
-
-			}
-			while (!res || denom == 0);
-
-			Fraction y = new Fraction(num, denom);
-			Fraction r;
-			switch (oper)
-            {
-				case "+":
-					r = x + y;
-					WriteLine(r.Reduce().ToString());
-					break;
-				case "-":
-					r = x - y;
-					WriteLine(r.Reduce().ToString());
-					break;
-				case "*":
-					r = x * y;
-					WriteLine(r.Reduce().ToString());
-					break;
-				case "/":
-					r = x / y;
-					WriteLine(r.Reduce().ToString());
-					break;
-			}
-			
 		}
 
 		static void Task4()
