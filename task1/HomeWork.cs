@@ -4,14 +4,15 @@ using taskHelper_lib;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace homeWorks
 {
-    internal class HomeWork
+    public class HomeWork
 	{
 		static void Main()
 		{
-			// домашка 5
+			// домашка 6
 			Title = "MyHomeWork";
 			Printer.PrintHeader(5);
 			int taskNumber;
@@ -51,75 +52,51 @@ namespace homeWorks
 
 		static void Task1()
 		{
-			// Так не работает норм, ибо кирилица тоже подходит
-			//bool x = TaskHelper.IsCorrectLogin("ШГолыв54");
-			//WriteLine(x);
-
-			string login = "Roman37";
-			byte[] arBytes = new byte[192];
-			int n = 0;
-			for (int i = 0; i < 47; i++)
-			{
-				arBytes[n] = (byte)i;
-				n++;
-			}
-			for (int i = 58; i < 64; i++)
-			{
-				arBytes[n] = (byte)i;
-				n++;
-			}
-			for (int i = 91; i < 96; i++)
-			{
-				arBytes[n] = (byte)i;
-				n++;
-			}
-			for (int i = 123; i < 255; i++)
-			{
-				arBytes[n] = (byte)i;
-				n++;
-			}
-
-			char[] arChars = System.Text.Encoding.ASCII.GetChars(arBytes); // массив исключений
-			bool f = true;
-
-			for (int i = 0; i < login.Length; i++) {
-				for (n = 0; n < arChars.Length; n++)
-				{
-					if (login[i] == arChars[n])
-					{
-						f = false;
-						break;
-					}
-				}
-				if (!f) break;
-			}			
-
-			if (login.Length >= 2 && login.Length <= 10 && Char.IsDigit((char)login[0]) == false && f == true)
-				WriteLine("логин {0} корректен", login);
-			else
-				WriteLine("Логин не корректен");
-
-			// regex
-
-			Regex lr = new Regex("^[a-z][a-z0-9]{1,9}$", RegexOptions.IgnoreCase);
-			if(lr.IsMatch(login))
-				WriteLine("логин {0} корректен", login);
-			else
-				WriteLine("Логин не корректен");
+			WriteLine("Таблица функции MyFunc:");
+			Table(new Fun1(MyFunc), -2, 2);
+			WriteLine("Таблица функции MyFunc2:");
+			Table(new Fun1(MyFunc2), -2, 2);
 		}
 
 		static void Task2()
-		{
-			//Message.PrintWords(3, "matches the previous token between 1 and 5 times,\n as many times as possible, giving back as needed (greedy)");
-			//WriteLine(Message.RemoveWords('_', "matches the_ previous token_ between"));
-			//WriteLine(Message.FindLongestWord("Найти самое длинное слово сообщения"));
-			//WriteLine(Message.LongestWords("Найти asdfzxcvqwer самое длинное слово testtesttest"));
-			
-			string text = "test1, asdfg test1;asdfg test02";
-			List<string> words = new List<string>() { "test1", "asdfg" };
+        {
+			List<Func> functions = new List<Func> {
+				new Func(Functions.Sqrt)
+				, new Func(Functions.Cos)
+				, new Func(Functions.Sin)
+				, new Func(Functions.Sdeg)
+			};
 
-			foreach (var word in Message.FrequencyAnalysis(text, words))
-				WriteLine(word.Key + " - " + word.Value);
+			WriteLine("Найти минимум функции");
+			WriteLine("Выберите функцию:");
+			WriteLine("1 -- f(x) = y^1/2 (кв корень)");
+			WriteLine("2 -- f(x) = cos(y)");
+			WriteLine("3 -- f(x) = sin(y)");
+			WriteLine("4 -- f(x) = y^2 (квадрат)");
+			int input = Functions.GetNum(functions.Count);
+
+			WriteLine("Задайте интервал, формата 'х1 х2':");
+
+			double startPoint = 0;
+			double endPoint = 0;
+			Functions.GetInterval(out startPoint, out endPoint);
+			WriteLine("Задайте шаг: ");
+			double step = double.Parse(ReadLine(), CultureInfo.InvariantCulture);
+			Functions.SaveFunc("data.bin", startPoint, endPoint, step, functions[input - 1]);
+			double min = double.MaxValue;
+			WriteLine("Значения функции: ");
+			Functions.Print(startPoint, endPoint, step, Functions.Load("data.bin", out min));
+			WriteLine("Мин. значение: {0:0.00}", min);
+		}
+
+		static void SandBox()
+		{
+			Car car = new Car();
+			car.start();
+			for (int i = 0; i < 10; i++)
+			{
+				car.Accelerate(Beep);
+			}
 		}
 
 		static void Task3()
@@ -147,5 +124,58 @@ namespace homeWorks
 			
 			
 		}
+		static void Beep(int speed)
+        {
+			WriteLine($"Too fast, speed = {speed}");
+        }
+
+		public delegate double Fun(double x);
+		public delegate double Fun1(double a, double x);
+		
+		public static void Table(Fun1 F, double x, double b)
+		{
+			Console.WriteLine("----- X ----- Y -----");
+			while (x <= b)
+			{
+				Console.WriteLine("| {0,8:0.000} | {1,8:0.000} |", x, F(x,b));
+				x += 1;
+			}
+			Console.WriteLine("---------------------");
+		}
+		// Создаем метод для передачи его в качестве параметра в Table
+		public static double MyFunc(double a, double x)
+		{
+			return a * x * x;
+		}
+		public static double MyFunc2(double a, double x)
+		{
+			return a * Math.Sin(x);
+		}
+
 	}
+
+	public delegate void Alarm(int s);
+	
+	public class Car
+    {
+		
+		int speed = 0;
+
+        public void start()
+        {
+			speed = 10;
+        }
+		public void stop()
+        {
+			speed = 0;
+        }
+		public void Accelerate(Alarm alarm)
+        {
+			speed += 10;
+			if (speed > 80) alarm(speed);
+        }
+
+    }
+
+	
 }
