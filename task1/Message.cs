@@ -52,5 +52,17 @@ namespace homeWorks
                 if(m.Length == l) result.Append(m.Value + " ");
             return result;
         }
+        public static Dictionary<string,int> FrequencyAnalysis(string text, List<string> words)
+        {
+            Dictionary<string,int> result = new Dictionary<string, int>();
+            _re = new Regex(@"\w+");
+            foreach (Match m in _re.Matches(text))
+            {
+                if (words.Contains(m.Value))
+                    result[m.Value] = result.ContainsKey(m.Value) ? result[m.Value]+1 : 1;
+                else result[m.Value] = 0;
+            }
+            return result;
+        }
     }
 }

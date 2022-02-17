@@ -113,7 +113,13 @@ namespace homeWorks
 			//Message.PrintWords(3, "matches the previous token between 1 and 5 times,\n as many times as possible, giving back as needed (greedy)");
 			//WriteLine(Message.RemoveWords('_', "matches the_ previous token_ between"));
 			//WriteLine(Message.FindLongestWord("Найти самое длинное слово сообщения"));
-			WriteLine(Message.LongestWords("Найти asdfzxcvqwer самое длинное слово testtesttest"));
+			//WriteLine(Message.LongestWords("Найти asdfzxcvqwer самое длинное слово testtesttest"));
+			
+			string text = "test1, asdfg test1;asdfg test02";
+			List<string> words = new List<string>() { "test1", "asdfg" };
+
+			foreach (var word in Message.FrequencyAnalysis(text, words))
+				WriteLine(word.Key + " - " + word.Value);
 		}
 
 		static void Task3()
