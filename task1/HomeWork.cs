@@ -110,7 +110,10 @@ namespace homeWorks
 
 		static void Task2()
 		{
-
+			//Message.PrintWords(3, "matches the previous token between 1 and 5 times,\n as many times as possible, giving back as needed (greedy)");
+			//WriteLine(Message.RemoveWords('_', "matches the_ previous token_ between"));
+			//WriteLine(Message.FindLongestWord("Найти самое длинное слово сообщения"));
+			WriteLine(Message.LongestWords("Найти asdfzxcvqwer самое длинное слово testtesttest"));
 		}
 
 		static void Task3()
