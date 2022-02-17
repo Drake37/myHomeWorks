@@ -11,7 +11,7 @@ namespace homeWorks
 	{
 		static void Main()
 		{
-			// домашка 5
+			// домашка 6
 			Title = "MyHomeWork";
 			Printer.PrintHeader(5);
 			int taskNumber;
@@ -51,75 +51,15 @@ namespace homeWorks
 
 		static void Task1()
 		{
-			// Так не работает норм, ибо кирилица тоже подходит
-			//bool x = TaskHelper.IsCorrectLogin("ШГолыв54");
-			//WriteLine(x);
-
-			string login = "Roman37";
-			byte[] arBytes = new byte[192];
-			int n = 0;
-			for (int i = 0; i < 47; i++)
-			{
-				arBytes[n] = (byte)i;
-				n++;
-			}
-			for (int i = 58; i < 64; i++)
-			{
-				arBytes[n] = (byte)i;
-				n++;
-			}
-			for (int i = 91; i < 96; i++)
-			{
-				arBytes[n] = (byte)i;
-				n++;
-			}
-			for (int i = 123; i < 255; i++)
-			{
-				arBytes[n] = (byte)i;
-				n++;
-			}
-
-			char[] arChars = System.Text.Encoding.ASCII.GetChars(arBytes); // массив исключений
-			bool f = true;
-
-			for (int i = 0; i < login.Length; i++) {
-				for (n = 0; n < arChars.Length; n++)
-				{
-					if (login[i] == arChars[n])
-					{
-						f = false;
-						break;
-					}
-				}
-				if (!f) break;
-			}			
-
-			if (login.Length >= 2 && login.Length <= 10 && Char.IsDigit((char)login[0]) == false && f == true)
-				WriteLine("логин {0} корректен", login);
-			else
-				WriteLine("Логин не корректен");
-
-			// regex
-
-			Regex lr = new Regex("^[a-z][a-z0-9]{1,9}$", RegexOptions.IgnoreCase);
-			if(lr.IsMatch(login))
-				WriteLine("логин {0} корректен", login);
-			else
-				WriteLine("Логин не корректен");
+			WriteLine("Таблица функции MyFunc1:");
+			Table(new Fun1(MyFunc), -2, 2);
+			WriteLine("Таблица функции MyFunc2:");
+			Table(new Fun1(MyFunc2), -2, 2);
 		}
 
 		static void Task2()
 		{
-			//Message.PrintWords(3, "matches the previous token between 1 and 5 times,\n as many times as possible, giving back as needed (greedy)");
-			//WriteLine(Message.RemoveWords('_', "matches the_ previous token_ between"));
-			//WriteLine(Message.FindLongestWord("Найти самое длинное слово сообщения"));
-			//WriteLine(Message.LongestWords("Найти asdfzxcvqwer самое длинное слово testtesttest"));
 			
-			string text = "test1, asdfg test1;asdfg test02";
-			List<string> words = new List<string>() { "test1", "asdfg" };
-
-			foreach (var word in Message.FrequencyAnalysis(text, words))
-				WriteLine(word.Key + " - " + word.Value);
 		}
 
 		static void Task3()
@@ -147,5 +87,29 @@ namespace homeWorks
 			
 			
 		}
+
+		public delegate double Fun(double x);
+		public delegate double Fun1(double a, double x);
+		
+		public static void Table(Fun1 F, double x, double b)
+		{
+			Console.WriteLine("----- X ----- Y -----");
+			while (x <= b)
+			{
+				Console.WriteLine("| {0,8:0.000} | {1,8:0.000} |", x, F(x,b));
+				x += 1;
+			}
+			Console.WriteLine("---------------------");
+		}
+		// Создаем метод для передачи его в качестве параметра в Table
+		public static double MyFunc(double a, double x)
+		{
+			return a * x * x;
+		}
+		public static double MyFunc2(double a, double x)
+		{
+			return a * Math.Sin(x);
+		}
+
 	}
 }
