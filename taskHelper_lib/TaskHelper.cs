@@ -1,9 +1,7 @@
 ﻿using System;
-using static System.Console;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static System.Console;
 
 namespace taskHelper_lib
 {
@@ -16,11 +14,10 @@ namespace taskHelper_lib
 
         public static int GetTaskNumber(int maxTaskNumber = 6)
         {
-            WriteLine($"\n" +
+            Write($"\n" +
                 $"==========================\n" +
-                $"Введите номер задачи от 1 до {maxTaskNumber} для выполнения, 0 для выхода.");
+                $"Введите номер задачи от 1 до {maxTaskNumber} для выполнения, 0 для выхода: ");
             
-            //int taskNumber = Convert.ToInt32(input); // todo: почитать про конверт
             bool result;
             int taskNumber;
 
@@ -35,6 +32,7 @@ namespace taskHelper_lib
             while (!result || taskNumber > maxTaskNumber || taskNumber < 0);
             return taskNumber;
         }
+
         public static string AskUserAbout(string question)
         {
             Write(question);
@@ -57,5 +55,47 @@ namespace taskHelper_lib
 
             return (double)Math.Sqrt(Math.Pow(x2 - x1, 2) + Math.Pow(y2 - y1, 2));
         }
+
+        public static List<int> SplitIntToDigits(int i)
+        {
+            i = Math.Abs(i);
+            var digits = new List<int>();
+            while (i > 0)
+            {
+                int digit = i % 10;
+                i /= 10;
+                digits.Add(digit);
+            }
+
+            return digits;
+        }
+
+        public static bool SignIn(string login, string password)
+        {
+            if (login != "root" && password != "GeekBrains") return false;
+            return true;
+        }
+
+        public static int SumDigitsLinq(int num)
+        {
+            return SplitIntToDigits(num).Sum();
+        }
+
+        public static int SumNumbers(int numFrom, int numTo)
+        {
+            if (numFrom <= numTo)
+            {
+                return numFrom + SumNumbers(++numFrom, numTo);
+            }
+            return 0;
+        }
+    
+        public static bool IsCorrectLogin(string login)
+        {
+            if (login.Length < 2 || login.Length > 10) return false;
+            if (!char.IsLetter(login[0])) return false;
+            return login.All(char.IsLetterOrDigit);
+        }
     }
+
 }

@@ -6,12 +6,13 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{AA601B9E-DB02-4E6D-90B9-412F819FB95D}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>task1</RootNamespace>
-    <AssemblyName>task1</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <RootNamespace>homeWorks</RootNamespace>
+    <AssemblyName>homeWorks</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>homeWorks.HomeWork</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -43,11 +47,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Functions.cs" />
     <Compile Include="HomeWork.cs" />
+    <Compile Include="Message.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="data.bin" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\taskHelper_lib\taskHelper_lib.csproj">

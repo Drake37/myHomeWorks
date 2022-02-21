@@ -2,126 +2,181 @@
 using static System.Console;
 using taskHelper_lib;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
+using System.Text.RegularExpressions;
+using System.Globalization;
 
-namespace homeWork_1
+namespace homeWorks
 {
-    internal class HomeWork
+    public class HomeWork
+	{
+		static void Main()
+		{
+			// домашка 6
+			Title = "MyHomeWork";
+			Printer.PrintHeader(5);
+			int taskNumber;
+			do
+			{
+				taskNumber = TaskHelper.GetTaskNumber(2);
+				switch (taskNumber)
+				{
+					case 1:
+						Task1();
+						break;
+					case 0:
+						Printer.PrintFooter();
+						break;
+					case 2:
+						Task2();
+						break;
+					case 3:
+						Task3();
+						break;
+					case 4:
+						Task4();
+						break;
+					case 5:
+						Task5();
+						break;
+					case 6:
+						Task6();
+						break;
+					case 7:
+						Task7();
+						break;
+				}
+			}
+			while (taskNumber != 0);
+		}
+
+		static void Task1()
+		{
+			WriteLine("Таблица функции MyFunc:");
+			Table(new Fun1(MyFunc), -2, 2);
+			WriteLine("Таблица функции MyFunc2:");
+			Table(new Fun1(MyFunc2), -2, 2);
+		}
+
+		static void Task2()
+        {
+			const string FILE = @"C:\Users\Drake\source\repos\homeWork01\task1\data.bin";
+			List<Func> functions = new List<Func> {
+				new Func(Functions.Sqrt)
+				, new Func(Functions.Cos)
+				, new Func(Functions.Sin)
+				, new Func(Functions.Sdeg)
+			};
+
+			WriteLine("Найти минимум функции");
+			WriteLine("Выберите функцию:");
+			WriteLine("1 -- f(x) = y^1/2 (кв корень)");
+			WriteLine("2 -- f(x) = cos(y)");
+			WriteLine("3 -- f(x) = sin(y)");
+			WriteLine("4 -- f(x) = y^2 (квадрат)");
+			int input = Functions.GetNum(functions.Count);
+
+			WriteLine("Задайте интервал, формата 'х1 х2':");
+
+			double startPoint = 0;
+			double endPoint = 0;
+			Functions.GetInterval(out startPoint, out endPoint);
+			WriteLine("Задайте шаг: ");
+			double step = double.Parse(ReadLine(), CultureInfo.InvariantCulture);
+			Functions.SaveFunc(FILE, startPoint, endPoint, step, functions[input - 1]);
+			double min = double.MaxValue;
+			WriteLine("Значения функции: ");
+			Functions.Print(startPoint, endPoint, step, Functions.Load(FILE, out min));
+			WriteLine("Мин. значение: {0:0.00}", min);
+		}
+
+		static void SandBox()
+		{
+			Car car = new Car();
+			car.start();
+			for (int i = 0; i < 10; i++)
+			{
+				car.Accelerate(Beep);
+			}
+		}
+
+		static void Task3()
+		{
+
+		}
+
+		static void Task4()
+		{
+			
+		}
+
+		static void Task5()
+		{
+			
+		}
+
+		static void Task6()
+		{
+			
+		}
+
+		static void Task7()
+        {
+			
+			
+		}
+		static void Beep(int speed)
+        {
+			WriteLine($"Too fast, speed = {speed}");
+        }
+
+		public delegate double Fun(double x);
+		public delegate double Fun1(double a, double x);
+		
+		public static void Table(Fun1 F, double x, double b)
+		{
+			Console.WriteLine("----- X ----- Y -----");
+			while (x <= b)
+			{
+				Console.WriteLine("| {0,8:0.000} | {1,8:0.000} |", x, F(x,b));
+				x += 1;
+			}
+			Console.WriteLine("---------------------");
+		}
+		// Создаем метод для передачи его в качестве параметра в Table
+		public static double MyFunc(double a, double x)
+		{
+			return a * x * x;
+		}
+		public static double MyFunc2(double a, double x)
+		{
+			return a * Math.Sin(x);
+		}
+
+	}
+
+	public delegate void Alarm(int s);
+	
+	public class Car
     {
-        private static string name;
-        private static string surname;
-        private static int age;
-        private static int height;
-        private static int weight;
-        private static string city;
-        
-        static void Main()
-        {
-            Printer.PrintHeader(1);
-            int taskNumber;
-            do
-            {
-                taskNumber = TaskHelper.GetTaskNumber(6);
-                switch (taskNumber)
-                {
-                    case 1:
-                        Task1();
-                        break;
-                    case 0:
-                        Printer.PrintFooter();
-                        break;
-                    case 2:
-                        Task2();
-                        break;
-                    case 3:
-                        Task3();
-                        break;
-                    case 4:
-                        Task4();
-                        break;
-                    case 5:
-                        Task5();
-                        break;
-                    case 6:
-                        Task6();
-                        break;
-                }
-            }
-            while (taskNumber != 0);
-        }        
+		
+		int speed = 0;
 
-        static void Task1()
+        public void start()
         {
-            name = TaskHelper.AskUserAbout("Ваше имя: ");
-            surname = TaskHelper.AskUserAbout("Ваша фамилия: ");
-            age = int.Parse(TaskHelper.AskUserAbout("Ваш возраст: "));
-            height = int.Parse(TaskHelper.AskUserAbout("Ваш рост: "));
-            weight = int.Parse(TaskHelper.AskUserAbout("Ваш вес: "));
-
-            WriteLine("Ваши данные:");
-            WriteLine("Имя: " + name + ", Фамилия: " + surname + ", Возраст: " + age +
-                ", Рост: " + height + ", Вес: " + weight);
-            WriteLine("Имя: {0}, Фамилия: {1}, Возраст: {2}, Рост: {3}, Вес: {4}", name, surname, age,
-                height, weight);
-            WriteLine($"Имя: {name}, Фамилия: {surname}, Возраст: {age}, Рост: {height}," +
-                $" Вес: {weight}");
+			speed = 10;
+        }
+		public void stop()
+        {
+			speed = 0;
+        }
+		public void Accelerate(Alarm alarm)
+        {
+			speed += 10;
+			if (speed > 80) alarm(speed);
         }
 
-        static void Task2()
-        {
-            weight = int.Parse(TaskHelper.AskUserAbout("Ваш вес, кг: "));
-            height = int.Parse(TaskHelper.AskUserAbout("Ваш рост, м: "));
-            WriteLine($"Индекс массы тела равен {weight / Math.Pow(height, 2)}");
-        }
-        
-        static void Task3()
-        {
-            WriteLine("Расстояние равно {0:F2}", TaskHelper.GetDistanceBetweenTwoDots());
-        }
-
-        static void Task4()
-        {
-            WriteLine(
-                "int x = 1;\n" +
-                "int y = 2;\n" +
-                "int z = x;\n" +
-                "x = y; y = z;"
-            );
-            
-            // without z
-            WriteLine(
-                "int x = 2;\n" +
-                "int y = 4;\n" +
-                "x += y;\n" +
-                "y = x - y;\n" +
-                "x -= y;"
-            );
-            int x = 2;
-            int y = 4;
-            x += y;
-            y = x - y;
-            x -= y;
-            Write($"{x}, {y}");
-
-        }
-
-        static void Task5()
-        {
-            name = TaskHelper.AskUserAbout("Ваше имя: ");
-            surname = TaskHelper.AskUserAbout("Ваша фамилия: ");
-            city = TaskHelper.AskUserAbout("Ваш город: ");
-            string text = $"{name} {surname}, г.{city}";
-            int centerByX = (WindowWidth/2) - (text.Length / 2);
-            int centerByY = (WindowHeight/2) - 1;
-            SetCursorPosition(centerByX, centerByY);
-            WriteLine(text);
-        }
-        static void Task6()
-        {
-            WriteLine("Пауза 3 сек");
-            TaskHelper.Pause(3);
-        }
     }
+
+	
 }
