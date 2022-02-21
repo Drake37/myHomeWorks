@@ -60,6 +60,7 @@ namespace homeWorks
 
 		static void Task2()
         {
+			const string FILE = @"C:\Users\Drake\source\repos\homeWork01\task1\data.bin";
 			List<Func> functions = new List<Func> {
 				new Func(Functions.Sqrt)
 				, new Func(Functions.Cos)
@@ -82,10 +83,10 @@ namespace homeWorks
 			Functions.GetInterval(out startPoint, out endPoint);
 			WriteLine("Задайте шаг: ");
 			double step = double.Parse(ReadLine(), CultureInfo.InvariantCulture);
-			Functions.SaveFunc("data.bin", startPoint, endPoint, step, functions[input - 1]);
+			Functions.SaveFunc(FILE, startPoint, endPoint, step, functions[input - 1]);
 			double min = double.MaxValue;
 			WriteLine("Значения функции: ");
-			Functions.Print(startPoint, endPoint, step, Functions.Load("data.bin", out min));
+			Functions.Print(startPoint, endPoint, step, Functions.Load(FILE, out min));
 			WriteLine("Мин. значение: {0:0.00}", min);
 		}
 

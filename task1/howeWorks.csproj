@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="data.bin" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\taskHelper_lib\taskHelper_lib.csproj">
